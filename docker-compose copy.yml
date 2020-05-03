@@ -1,0 +1,14 @@
+version: "3"
+services:
+  mongo:
+    image: "mongo:bionic"
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+      - NODEBB_PL_PASS=${NODEBB_PL_PASS}
+      - NODEBB_EN_PASS=${NODEBB_EN_PASS}
+      - NODEBB_PRIVATE_PASS=${NODEBB_PRIVATE_PASS}
+    volumes:
+      - "./mongo/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
