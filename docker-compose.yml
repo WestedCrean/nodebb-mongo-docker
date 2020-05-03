@@ -12,12 +12,23 @@ services:
       - NODEBB_PRIVATE_PASS=privpass
     volumes:
       - "./mongo/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+    networks:
+      - mongo_network
+    command: mongod --bind_ip 127.0.0.1,mongo --auth
+
   nodebb-pl:
     image: "nodebb/docker"
     ports:
       - "8080:4567"
+    networks:
+      - mongo_network
   test:
     build:
       context: "./test"
     environment:
       - NODEBB_PL_PASS=plpass
+    networks:
+      - mongo_network
+networks:
+  mongo_network:
+    driver: bridge
