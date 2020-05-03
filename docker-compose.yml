@@ -13,22 +13,43 @@ services:
     volumes:
       - "./mongo/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
     networks:
+<<<<<<< HEAD
       - mongo_network
+=======
+      mongo_network:
+>>>>>>> 7d033d81f9003252189db78839ff720101e283f1
     command: mongod --bind_ip 127.0.0.1,mongo --auth
 
   nodebb-pl:
     image: "nodebb/docker"
     ports:
       - "8080:4567"
+<<<<<<< HEAD
     networks:
       - mongo_network
+=======
+    depends_on:
+      - mongo
+>>>>>>> 7d033d81f9003252189db78839ff720101e283f1
   test:
     build:
       context: "./test"
     environment:
       - NODEBB_PL_PASS=plpass
+<<<<<<< HEAD
     networks:
       - mongo_network
 networks:
   mongo_network:
     driver: bridge
+=======
+    depends_on:
+      - mongo
+    command: "tail -f /dev/null"
+    networks:
+      mongo_network:
+
+networks:
+  mongo_network:
+    driver: bridge
+>>>>>>> 7d033d81f9003252189db78839ff720101e283f1
