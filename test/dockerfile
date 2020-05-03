@@ -1,0 +1,10 @@
+FROM node:10
+
+WORKDIR /usr/src/app
+COPY package*.json ./
+
+RUN npm install
+
+COPY index.js ./
+RUN echo 'dupa'
+RUN NODEBB_PL_PASS=plpass  node /usr/src/app/index.js

@@ -7,12 +7,17 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
-      - NODEBB_PL_PASS=pl_pass
-      - NODEBB_EN_PASS=en_pass
-      - NODEBB_PRIVATE_PASS=priv_pass
+      - NODEBB_PL_PASS=plpass
+      - NODEBB_EN_PASS=enpass
+      - NODEBB_PRIVATE_PASS=privpass
     volumes:
       - "./mongo/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
   nodebb-pl:
     image: "nodebb/docker"
     ports:
       - "8080:4567"
+  test:
+    build:
+      context: "./test"
+    environment:
+      - NODEBB_PL_PASS=plpass
